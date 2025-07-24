@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ExternalLink, FileQuestion, Terminal, AlertCircle, Loader2 } from "lucide-react";
 import { ClaudeVersionSelector } from "./ClaudeVersionSelector";
+import { open as openUrl } from "@tauri-apps/plugin-shell";
 
 interface ClaudeBinaryDialogProps {
   open: boolean;
@@ -114,7 +115,7 @@ export function ClaudeBinaryDialog({ open, onOpenChange, onSuccess, onError }: C
         <DialogFooter className="gap-3">
           <Button
             variant="outline"
-            onClick={() => window.open("https://docs.claude.ai/claude/how-to-install", "_blank")}
+            onClick={() => openUrl("https://docs.claude.ai/claude/how-to-install").catch(console.error)}
             className="mr-auto"
           >
             <ExternalLink className="w-4 h-4 mr-2" />

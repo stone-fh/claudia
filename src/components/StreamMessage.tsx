@@ -12,6 +12,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { claudeSyntaxTheme } from "@/lib/claudeSyntaxTheme";
+import { open } from "@tauri-apps/plugin-shell";
 import type { ClaudeStreamMessage } from "./AgentExecution";
 import {
   TodoWidget,
@@ -142,6 +143,23 @@ const StreamMessageComponent: React.FC<StreamMessageProps> = ({ message, classNa
                                 <code className={className} {...props}>
                                   {children}
                                 </code>
+                              );
+                            },
+                            a({ href, children, ...props }: any) {
+                              return (
+                                <a
+                                  {...props}
+                                  href={href}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    if (href) {
+                                      open(href).catch(console.error);
+                                    }
+                                  }}
+                                  className="text-primary hover:underline cursor-pointer"
+                                >
+                                  {children}
+                                </a>
                               );
                             }
                           }}
@@ -671,6 +689,23 @@ const StreamMessageComponent: React.FC<StreamMessageProps> = ({ message, classNa
                             <code className={className} {...props}>
                               {children}
                             </code>
+                          );
+                        },
+                        a({ href, children, ...props }: any) {
+                          return (
+                            <a
+                              {...props}
+                              href={href}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                if (href) {
+                                  open(href).catch(console.error);
+                                }
+                              }}
+                              className="text-primary hover:underline cursor-pointer"
+                            >
+                              {children}
+                            </a>
                           );
                         }
                       }}

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Circle, FileText, Settings, ExternalLink, BarChart3, Network, Info } from "lucide-react";
+import { Circle, FileText, Settings, ExternalLink, BarChart3, Network, Info, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Popover } from "@/components/ui/popover";
 import { api, type ClaudeVersionStatus } from "@/lib/api";
+import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
 
 interface TopbarProps {
@@ -54,6 +55,7 @@ export const Topbar: React.FC<TopbarProps> = ({
 }) => {
   const [versionStatus, setVersionStatus] = useState<ClaudeVersionStatus | null>(null);
   const [checking, setChecking] = useState(true);
+  const { theme, toggleTheme } = useTheme();
   
   // Check Claude version on mount
   useEffect(() => {
@@ -211,6 +213,16 @@ export const Topbar: React.FC<TopbarProps> = ({
         >
           <Settings className="mr-2 h-3 w-3" />
           Settings
+        </Button>
+        
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={toggleTheme}
+          className="h-8 w-8"
+          title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+        >
+          {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
         </Button>
         
         <Button
